@@ -46,7 +46,8 @@ class TelegramContactDriver extends TelegramDriver
      */
     public function loadMessages()
     {
-        $message = new IncomingMessage(Contact::PATTERN, $this->event->get('from')['id'], $this->event->get('chat')['id'], $this->event);
+        $message = new IncomingMessage(Contact::PATTERN, $this->event->get('from')['id'], $this->event->get('chat')['id'], $this->event,                    $this->config->get("bot_id", '')
+        );
         $message->setContact(new Contact(
             $this->event->get('contact')['phone_number'] ?? '',
             $this->event->get('contact')['first_name'] ?? '',

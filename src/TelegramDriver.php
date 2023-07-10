@@ -232,12 +232,15 @@ class TelegramDriver extends HttpDriver
                     $callback->get('data'),
                     $callback->get('from')['id'],
                     $callback->get('message')['chat']['id'],
-                    $callback->get('message')
+                    $callback->get('message'),
+                    $this->config->get("bot_id", '')
                 ),
             ];
         } elseif ($this->isValidLoginRequest()) {
             $messages = [
-                new IncomingMessage('', $this->queryParameters->get('id'), $this->queryParameters->get('id'), $this->queryParameters),
+                new IncomingMessage('', $this->queryParameters->get('id'), $this->queryParameters->get('id'), $this->queryParameters,  $this->config->get("bot_id", '')
+
+                ),
             ];
         } else {
             $event = $this->event->all();
@@ -247,7 +250,9 @@ class TelegramDriver extends HttpDriver
                     $this->event->get('text'),
                     isset($event['from']['id']) ? $event['from']['id'] : null,
                     isset($event['chat']['id']) ? $event['chat']['id'] : null,
-                    $this->event
+                    $this->event,
+                    $this->config->get("bot_id", '')
+
                 ),
             ];
         }

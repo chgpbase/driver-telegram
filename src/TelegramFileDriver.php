@@ -52,7 +52,9 @@ class TelegramFileDriver extends TelegramDriver
             File::PATTERN,
             $this->event->get('from')['id'],
             $this->event->get('chat')['id'],
-            $this->event
+            $this->event,
+            $this->config->get("bot_id", '')
+
         );
         $message->setFiles($this->getFiles());
 
